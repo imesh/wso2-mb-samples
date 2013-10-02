@@ -1,0 +1,43 @@
+<component name="libraryTable">
+  <library name="Maven: org.wso2.andes.wso2:andes-client:0.13.wso2v3">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/andes/wso2/andes-client/0.13.wso2v3/andes-client-0.13.wso2v3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/andes/wso2/andes-client/0.13.wso2v3/andes-client-0.13.wso2v3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/andes/wso2/andes-client/0.13.wso2v3/andes-client-0.13.wso2v3-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/tasks/src" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/tools/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker/src/velocity/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/client/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/client/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/client/src/old_test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/client/example/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/common/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/common/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/testkit/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/systests/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/perftests/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/management/common/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/management/example/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/management/eclipse-plugin/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/management/eclipse-plugin/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/junit-toolkit/src/main" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/extras/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/extras/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/firewall/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/firewall/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/experimental/info/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/experimental/info/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/experimental/shutdown/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/access-control/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/broker-plugins/access-control/src/test/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/java/integrationtests/src/main/java" />
+      <root url="file://$PROJECT_DIR$/../../wso2/svn/carbon/branches/platform/carbon-4.1.0/dependencies/andes/0.13.0-wso2v9/gentools/src" />
+    </SOURCES>
+  </library>
+</component>
