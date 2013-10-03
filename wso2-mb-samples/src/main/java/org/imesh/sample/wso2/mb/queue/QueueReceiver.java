@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.imesh.sample.mb.topic;
+package org.imesh.sample.wso2.mb.queue;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -25,49 +25,47 @@ import javax.naming.NamingException;
 import java.io.IOException;
 import java.util.Properties;
 
-public class TopicSubscriber {
-    private String topicName = "SampleTopic";
+public class QueueReceiver {
+    String queueName = "SampleQueue";
 
     private Properties getProperties() throws IOException {
-        Properties prop = new Properties();
-        prop.load(TopicPublisherMain.class.getClassLoader().getResourceAsStream("jndi.properties"));
-        return prop;
+        Properties properties = new Properties();
+        properties.load(QueueReceiver.class.getClassLoader().getResourceAsStream("jndi.properties"));
+        properties.put("queue." + queueName, queueName);
+        return properties;
     }
 
-    public void subscribe() throws NamingException, JMSException, IOException {
-        // Prepare JNDI properties
+    public void receiveMessages() throws NamingException, JMSException, IOException {
         Properties properties = getProperties();
         InitialContext ctx = new InitialContext(properties);
 
         // Lookup connection factory
-        String connectionFactoryName = properties.get("connectionfactoryName").toString();
-        TopicConnectionFactory connectionFactory = (TopicConnectionFactory) ctx.lookup(connectionFactoryName);
-        TopicConnection topicConnection = connectionFactory.createTopicConnection();
-        topicConnection.start();
-        TopicSession topicSession = topicConnection.createTopicSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+        String connectionFactoryName = properties.getProperty("connectionfactoryName");
+        QueueConnectionFactory connectionFactory = (QueueConnectionFactory) ctx.lookup(connectionFactoryName);
+        QueueConnection connection = connectionFactory.createQueueConnection();
+        connection.start();
+        QueueSession queueSession = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
 
         // Receive message
-        Topic topic = topicSession.createTopic(topicName);
-        javax.jms.TopicSubscriber topicSubscriber = topicSession.createSubscriber(topic);
-        Message message = topicSubscriber.receive();
+        Queue queue = (Queue) ctx.lookup(queueName);
+        MessageConsumer queueReceiver = queueSession.createConsumer(queue);
+        Message message = queueReceiver.receive();
 
         // Print message
         if (message instanceof TextMessage) {
             TextMessage textMessage = (TextMessage) message;
             System.out.println("Text message received: " + textMessage.getText());
-        }
-        else if(message instanceof ObjectMessage) {
+        } else if (message instanceof ObjectMessage) {
             ObjectMessage objectMessage = (ObjectMessage) message;
             System.out.println("Object message received: " + objectMessage.toString());
-        }
-        else {
+        } else {
             throw new RuntimeException("Unknown message type");
         }
 
         // Clean up resources
-        topicSubscriber.close();
-        topicSession.close();
-        topicConnection.stop();
-        topicConnection.close();
+        queueReceiver.close();
+        queueSession.close();
+        connection.stop();
+        connection.close();
     }
 }

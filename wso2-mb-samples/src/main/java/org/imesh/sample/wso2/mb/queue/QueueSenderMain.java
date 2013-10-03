@@ -17,18 +17,14 @@
  * under the License.
  */
 
-package org.imesh.sample.mb.topic;
+package org.imesh.sample.wso2.mb.queue;
 
-import javax.jms.JMSException;
-import javax.naming.NamingException;
-
-public class TopicSubscriberMain {
+public class QueueSenderMain {
     public static void main(String[] args) {
         try {
-            TopicSubscriber topicSubscriber = new TopicSubscriber();
-            topicSubscriber.subscribe();
-        }
-        catch (Exception e) {
+            QueueSender queueSender = new QueueSender();
+            queueSender.sendMessages("Sample message");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -17,13 +17,13 @@
  * under the License.
  */
 
-package org.imesh.sample.mb.queue;
+package org.imesh.sample.wso2.mb.queue;
 
-public class QueueSenderMain {
+public class QueueReceiverMain {
     public static void main(String[] args) {
         try {
-            QueueSender queueSender = new QueueSender();
-            queueSender.sendMessages("Sample message");
+            QueueReceiver queueReceiver = new QueueReceiver();
+            queueReceiver.receiveMessages();
         } catch (Exception e) {
             e.printStackTrace();
         }

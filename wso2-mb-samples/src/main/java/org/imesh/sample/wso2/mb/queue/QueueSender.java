@@ -18,9 +18,7 @@
  * under the License.
  */
 
-package org.imesh.sample.mb.queue;
-
-import org.imesh.sample.mb.topic.TopicPublisherMain;
+package org.imesh.sample.wso2.mb.queue;
 
 import javax.jms.*;
 import javax.naming.InitialContext;
@@ -34,7 +32,7 @@ public class QueueSender {
 
     private Properties getProperties() throws IOException {
         Properties properties = new Properties();
-        properties.load(TopicPublisherMain.class.getClassLoader().getResourceAsStream("jndi.properties"));
+        properties.load(QueueSender.class.getClassLoader().getResourceAsStream("jndi.properties"));
         properties.put("queue." + queueName, queueName);
         return properties;
     }
@@ -51,31 +49,28 @@ public class QueueSender {
         QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
 
         // Lookup queue
-        Queue queue = (Queue)ctx.lookup(queueName);
-        javax.jms.QueueSender queueSender = null;
+        Queue queue = (Queue) ctx.lookup(queueName);
+        javax.jms.QueueSender queueSender;
 
         // Send message
-        if(message instanceof String) {
-            TextMessage textMessage = queueSession.createTextMessage((String)message);
+        if (message instanceof String) {
+            TextMessage textMessage = queueSession.createTextMessage((String) message);
             queueSender = queueSession.createSender(queue);
             queueSender.send(textMessage);
 
-            System.out.println("Text message sent: " + (String)message);
-        }
-        else if(message instanceof Serializable) {
+            System.out.println("Text message sent: " + message);
+        } else if (message instanceof Serializable) {
             ObjectMessage objectMessage = queueSession.createObjectMessage((Serializable) message);
             queueSender = queueSession.createSender(queue);
             queueSender.send(objectMessage);
 
-            System.out.println("Object message sent: " + ((Serializable)message).toString());
-        }
-        else {
+            System.out.println("Object message sent: " + message.toString());
+        } else {
             throw new RuntimeException("Unknown message type");
         }
 
         // Clean up resources
-        if(queueSender != null)
-            queueSender.close();
+        queueSender.close();
         queueSession.close();
         queueConnection.close();
     }
