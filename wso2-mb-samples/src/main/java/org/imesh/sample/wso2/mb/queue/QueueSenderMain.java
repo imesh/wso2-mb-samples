@@ -19,13 +19,29 @@
 
 package org.imesh.sample.wso2.mb.queue;
 
+import javax.jms.JMSException;
+
 public class QueueSenderMain {
     public static void main(String[] args) {
+        QueueSender queueSender = null;
         try {
-            QueueSender queueSender = new QueueSender();
-            queueSender.sendMessages("Sample message");
+            queueSender = new QueueSender("SampleQueue");
+            queueSender.connect();
+
+            queueSender.sendMessage("Sample message 1");
+            queueSender.sendMessage("Sample message 2");
+            queueSender.sendMessage("Sample message 3");
+
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                if(queueSender != null)
+                    queueSender.close();
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

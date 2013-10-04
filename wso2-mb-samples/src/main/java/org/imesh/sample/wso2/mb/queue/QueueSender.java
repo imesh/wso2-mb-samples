@@ -27,8 +27,19 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Properties;
 
+/**
+ * Implements functionality for sending messages to a given queue.
+ */
 public class QueueSender {
-    String queueName = "SampleQueue";
+    private String queueName;
+    private QueueConnection connection;
+    private QueueSession queueSession;
+    private javax.jms.QueueSender queueSender;
+    private Queue queue;
+
+    public QueueSender(String queueName) {
+        this.queueName = queueName;
+    }
 
     private Properties getProperties() throws IOException {
         Properties properties = new Properties();
@@ -37,21 +48,25 @@ public class QueueSender {
         return properties;
     }
 
-    public void sendMessages(Object message) throws NamingException, JMSException, IOException {
+    public void connect() throws IOException, NamingException, JMSException {
         Properties properties = getProperties();
         InitialContext ctx = new InitialContext(properties);
 
         // Lookup connection factory
         String connectionFactoryName = properties.getProperty("connectionfactoryName");
         QueueConnectionFactory connectionFactory = (QueueConnectionFactory) ctx.lookup(connectionFactoryName);
-        QueueConnection queueConnection = connectionFactory.createQueueConnection();
-        queueConnection.start();
-        QueueSession queueSession = queueConnection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+        connection = connectionFactory.createQueueConnection();
+        connection.start();
+        queueSession = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+
+        // Create queue
+        queueSession.createQueue(queueName);
 
         // Lookup queue
-        Queue queue = (Queue) ctx.lookup(queueName);
-        javax.jms.QueueSender queueSender;
+        queue = (Queue) ctx.lookup(queueName);
+    }
 
+    public void sendMessage(Object message) throws JMSException {
         // Send message
         if (message instanceof String) {
             TextMessage textMessage = queueSession.createTextMessage((String) message);
@@ -68,10 +83,15 @@ public class QueueSender {
         } else {
             throw new RuntimeException("Unknown message type");
         }
+    }
 
+    public void close() throws JMSException {
         // Clean up resources
-        queueSender.close();
-        queueSession.close();
-        queueConnection.close();
+        if (queueSender != null)
+            queueSender.close();
+        if (queueSession != null)
+            queueSession.close();
+        if (connection != null)
+            connection.close();
     }
 }

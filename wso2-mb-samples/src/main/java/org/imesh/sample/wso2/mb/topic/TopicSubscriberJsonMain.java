@@ -24,7 +24,6 @@ import org.imesh.sample.wso2.mb.message.Topology;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
 public class TopicSubscriberJsonMain {
@@ -33,9 +32,13 @@ public class TopicSubscriberJsonMain {
         TopicSubscriber subscriber = null;
         try {
             subscriber = new TopicSubscriber("SampleTopic");
-            subscriber.subscribe();
+            subscriber.connect();
 
+            int count = 0;
             while (true) {
+                if(count == 10)
+                    break; // Read 10 messages and exit
+
                 Message message = subscriber.receive();
                 if (message != null) {
                     if (message instanceof TextMessage) {
@@ -47,22 +50,19 @@ public class TopicSubscriberJsonMain {
                             Gson gson = new Gson();
                             Topology result = gson.fromJson(jsonMessage, Topology.class);
                             System.out.println("Object created from json: " + result.toString());
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             // Could not parse received message to json
                             e.printStackTrace();
                         }
-                    }
-                    else {
+                    } else {
                         throw new RuntimeException("Unknown message type");
                     }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
-            if(subscriber != null) {
+        } finally {
+            if (subscriber != null) {
                 try {
                     subscriber.close();
                 } catch (JMSException e) {

@@ -26,7 +26,14 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class QueueReceiver {
-    String queueName = "SampleQueue";
+    private String queueName;
+    private QueueConnection connection;
+    private QueueSession queueSession;
+    private MessageConsumer queueReceiver;
+
+    public QueueReceiver(String queueName) {
+        this.queueName = queueName;
+    }
 
     private Properties getProperties() throws IOException {
         Properties properties = new Properties();
@@ -35,37 +42,36 @@ public class QueueReceiver {
         return properties;
     }
 
-    public void receiveMessages() throws NamingException, JMSException, IOException {
+    public void connect() throws NamingException, IOException, JMSException {
+        // Fetch jndi properties
         Properties properties = getProperties();
         InitialContext ctx = new InitialContext(properties);
 
         // Lookup connection factory
         String connectionFactoryName = properties.getProperty("connectionfactoryName");
         QueueConnectionFactory connectionFactory = (QueueConnectionFactory) ctx.lookup(connectionFactoryName);
-        QueueConnection connection = connectionFactory.createQueueConnection();
+        connection = connectionFactory.createQueueConnection();
         connection.start();
-        QueueSession queueSession = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+        queueSession = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
 
-        // Receive message
+        // Create message consumer
         Queue queue = (Queue) ctx.lookup(queueName);
-        MessageConsumer queueReceiver = queueSession.createConsumer(queue);
-        Message message = queueReceiver.receive();
+        queueReceiver = queueSession.createConsumer(queue);
+    }
 
-        // Print message
-        if (message instanceof TextMessage) {
-            TextMessage textMessage = (TextMessage) message;
-            System.out.println("Text message received: " + textMessage.getText());
-        } else if (message instanceof ObjectMessage) {
-            ObjectMessage objectMessage = (ObjectMessage) message;
-            System.out.println("Object message received: " + objectMessage.toString());
-        } else {
-            throw new RuntimeException("Unknown message type");
-        }
+    public Message receiveMessage() throws JMSException {
+        return queueReceiver.receive();
+    }
 
+    public void close() throws JMSException {
         // Clean up resources
-        queueReceiver.close();
-        queueSession.close();
-        connection.stop();
-        connection.close();
+        if (queueReceiver != null)
+            queueReceiver.close();
+        if (queueSession != null)
+            queueSession.close();
+        if (connection != null) {
+            connection.stop();
+            connection.close();
+        }
     }
 }

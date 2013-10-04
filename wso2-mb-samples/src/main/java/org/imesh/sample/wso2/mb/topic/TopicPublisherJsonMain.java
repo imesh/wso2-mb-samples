@@ -31,7 +31,7 @@ public class TopicPublisherJsonMain {
         TopicPublisher publisher = null;
         try {
             publisher = new TopicPublisher("SampleTopic");
-            publisher.createTopic();
+            publisher.connect();
             publisher.sendMessage(generateJson());
         } catch (Exception e) {
             e.printStackTrace();

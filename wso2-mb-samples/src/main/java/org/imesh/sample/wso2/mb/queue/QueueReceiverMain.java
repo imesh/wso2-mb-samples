@@ -19,13 +19,47 @@
 
 package org.imesh.sample.wso2.mb.queue;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.ObjectMessage;
+import javax.jms.TextMessage;
+
 public class QueueReceiverMain {
     public static void main(String[] args) {
+        QueueReceiver queueReceiver = null;
         try {
-            QueueReceiver queueReceiver = new QueueReceiver();
-            queueReceiver.receiveMessages();
+            queueReceiver = new QueueReceiver("SampleQueue");
+            queueReceiver.connect();
+
+            int count = 0;
+            while (true) {
+                if(count == 10)
+                    break; // Read 10 messages and exit
+
+                Message message = queueReceiver.receiveMessage();
+                count++;
+
+                // Print message
+                if (message instanceof TextMessage) {
+                    TextMessage textMessage = (TextMessage) message;
+                    System.out.println("Text message received: " + textMessage.getText());
+                } else if (message instanceof ObjectMessage) {
+                    ObjectMessage objectMessage = (ObjectMessage) message;
+                    System.out.println("Object message received: " + objectMessage.toString());
+                } else {
+                    throw new RuntimeException("Unknown message type");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                if(queueReceiver != null)
+                    queueReceiver.close();
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

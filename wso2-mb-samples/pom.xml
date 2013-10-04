@@ -21,11 +21,13 @@
         </repository>
     </repositories>
     <dependencies>
+        <!-- Andes client is used for making the JMS connection -->
         <dependency>
             <groupId>org.wso2.andes.wso2</groupId>
             <artifactId>andes-client</artifactId>
-            <version>0.13.wso2v3</version>
+            <version>0.13.wso2v8</version>
         </dependency>
+        <!-- Geronimo-jms is used for javax.jms implementation -->
         <dependency>
             <groupId>org.apache.geronimo.specs.wso2</groupId>
             <artifactId>geronimo-jms_1.1_spec</artifactId>
@@ -36,11 +38,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.2.4</version>
-        </dependency>
+        <!-- Google Gson is used for processing json messages -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
