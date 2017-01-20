@@ -1,8 +1,14 @@
-WSO2 Product Samples
-====================
+WSO2 Message Broker Samples
+===========================
 
-This git repo includes samples created for demonstrating WSO2 products. Please feel free to contribute or report any issues you find in the samples.
+* Getting started:
+  * Download, extract and run WSO Message Broker binary distribution from http://wso2.com.
+  * Update jndi.properties file as required.
 
-* WSO2 Message Broker (MB) Samples
-  * Queue Sample
-  * Topic Sample
+* Queue Sample:
+  * Login to WSO2 MB dashboard and create a new queue with the name SampleQueue.
+  * Run QueueReceiverMain and QueueSenderMain and have a look at the console.
+
+* Topic Sample:
+  * In this scenario the topic will be created on the fly.
+  * Run TopicSubscriberMain and TopicPublisherMain and have a look at the console.
